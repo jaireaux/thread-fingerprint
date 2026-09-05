@@ -1,0 +1,18 @@
+{
+  "name": "thread-metadata-diagnostic",
+  "version": "0.1.0-pre.1",
+  "description": "Read-only MCP diagnostic for metadata supplied by the host/runtime.",
+  "author": {"name": "Johnny Rollerfeet"},
+  "license": "MIT",
+  "keywords": ["mcp", "diagnostic", "metadata", "read-only"],
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Thread Metadata Diagnostic",
+    "shortDescription": "Inspect metadata supplied to one read-only MCP call.",
+    "longDescription": "Reports sanitized tool arguments, MCP metadata, HTTP request metadata, and safe runtime facts without logging or persistence.",
+    "developerName": "Johnny Rollerfeet",
+    "category": "Developer Tools",
+    "capabilities": ["Read"],
+    "defaultPrompt": ["Run inspect_context with DSHS-THREAD-METADATA-DIAGNOSTIC."]
+  }
+}
