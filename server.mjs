@@ -3,12 +3,13 @@ import process from "node:process";
 
 export const MARKER = "DSHS-THREAD-METADATA-DIAGNOSTIC";
 export const TOOL_NAME = "inspect_context";
-export const VERSION = "0.1.0-pre.1";
+export const VERSION = "0.1.0-pre.2";
 
 const PORT = Number.parseInt(process.env.PORT || "8787", 10);
 const HOST = process.env.HOST || "127.0.0.1";
 const MAX_BODY_BYTES = 64 * 1024;
 const SECRET_KEY = /^(authorization|proxy-authorization|cookie|set-cookie|x-api-key|api[-_]?key|access[-_]?token|refresh[-_]?token|password|passwd|client[-_]?secret|private[-_]?key)$/i;
+const PRIVATE_NETWORK_HEADER = /^(cf-connecting-ip|x-forwarded-for|x-real-ip|forwarded)$/i;
 
 function sanitize(value, seen = new WeakSet()) {
   if (value === null || typeof value !== "object") return value;
@@ -24,7 +25,10 @@ function sanitize(value, seen = new WeakSet()) {
 
 function requestHeaders(req) {
   return sanitize(Object.fromEntries(
-    Object.entries(req.headers).map(([key, value]) => [key, value ?? null]),
+    Object.entries(req.headers).map(([key, value]) => [
+      key,
+      PRIVATE_NETWORK_HEADER.test(key) ? "[REDACTED]" : (value ?? null),
+    ]),
   ));
 }
 

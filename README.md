@@ -2,7 +2,7 @@
 
 Stable marker: `DSHS-THREAD-METADATA-DIAGNOSTIC`
 
-Version 0.1.0 is deliberately limited to one read-only MCP tool:
+Version 0.1.0-pre.2 is deliberately limited to one read-only MCP tool:
 `inspect_context`. It reports only what the current tool call and server
 runtime can legitimately observe:
 
@@ -12,7 +12,7 @@ runtime can legitimately observe:
 - Node.js version, operating system, and architecture.
 
 It does not read conversation messages, call another service, mutate anything,
-write logs, or persist observations. Known credential-bearing fields are
+write logs, or persist observations. Known credential-bearing fields and proxy-forwarded client IP headers are
 returned as `[REDACTED]`.
 
 ## Run locally
@@ -61,4 +61,4 @@ as experimental, never as a sole DSHS dependency.
 
 ## Development timing
 
-As of prerelease `0.1.0-pre.1`, this project has been in development for approximately 1 hour 3 minutes, beginning `2026-09-05 12:23 EDT`. Approximately 14 minutes was spent waiting on AI. These are user-approved approximate baselines; methodology and machine-readable values are retained in `project-timing.json`.
+As of prerelease `0.1.0-pre.2`, this project has been in development for approximately 1 hour 15 minutes, beginning `2026-09-05 12:23 EDT`. Approximately 26 minutes was spent waiting on AI. These are user-approved approximate baselines; methodology and machine-readable values are retained in `project-timing.json`.

@@ -41,12 +41,19 @@ test("returns supplied metadata and redacts credential fields", async (t) => {
         access_token: "must-not-leak",
       },
     },
-  }, {authorization: "Bearer must-not-leak", "x-test-surface": "local-test"});
+  }, {
+    authorization: "Bearer must-not-leak",
+    "cf-connecting-ip": "203.0.113.10",
+    "x-forwarded-for": "203.0.113.10",
+    "x-test-surface": "local-test",
+  });
   const report = body.result.structuredContent;
   assert.equal(report.toolCall.meta["openai/locale"], "en-US");
   assert.equal(report.toolCall.meta["openai/subject"], "opaque-subject");
   assert.equal(report.toolCall.meta.access_token, "[REDACTED]");
   assert.equal(report.transport.headers.authorization, "[REDACTED]");
+  assert.equal(report.transport.headers["cf-connecting-ip"], "[REDACTED]");
+  assert.equal(report.transport.headers["x-forwarded-for"], "[REDACTED]");
   assert.equal(report.transport.headers["x-test-surface"], "local-test");
   assert.equal(JSON.stringify(report).includes("must-not-leak"), false);
 });
