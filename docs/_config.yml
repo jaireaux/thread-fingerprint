@@ -1,0 +1,8 @@
+title: Thread Fingerprint
+description: Privacy-minimized conversation identification for ChatGPT
+theme: minima
+header_pages:
+  - privacy.md
+  - security.md
+  - terms.md
+  - support.md

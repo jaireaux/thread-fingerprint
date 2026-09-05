@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "project": "thread-metadata-diagnostic",
+  "project": "thread-fingerprint",
   "development_started_at": "2026-09-05T12:23:00-04:00",
   "baseline_status": "approximate, user-approved",
   "baseline_basis": "Workspace creation time and user approval in the originating ChatGPT Work thread.",
-  "version": "0.1.0-pre.2",
-  "measured_through": "2026-09-05T13:38:00-04:00",
-  "cumulative_project_age_seconds": 4500,
-  "cumulative_ai_waiting_seconds_approximate": 1560,
+  "version": "0.2.0-pre.1",
+  "measured_through": "2026-09-05T18:34:00-04:00",
+  "cumulative_project_age_seconds": 22260,
+  "cumulative_ai_waiting_seconds_approximate": 2100,
   "ai_waiting_method": "Approximate sum of project-related prompt-to-complete-response intervals; exact stream completion is not observable.",
   "prompt_content_recorded": false
 }

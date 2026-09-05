@@ -1,64 +1,61 @@
-# Thread Metadata Diagnostic
+# Thread Fingerprint
 
-Stable marker: `DSHS-THREAD-METADATA-DIAGNOSTIC`
+Thread Fingerprint is a privacy-minimized, read-only MCP utility that produces a deterministic fingerprint for the current ChatGPT conversation.
 
-Version 0.1.0-pre.2 is deliberately limited to one read-only MCP tool:
-`inspect_context`. It reports only what the current tool call and server
-runtime can legitimately observe:
+It derives a SHA-256 value from ChatGPT's documented anonymized `openai/session` metadata. It does **not** return the raw session value, user identity, organization identity, location, request headers, runtime metadata, conversation content, visible title, or conversation URL.
 
-- tool arguments;
-- the MCP `params._meta` object;
-- sanitized HTTP method, path, version, and request headers;
-- Node.js version, operating system, and architecture.
+## What it returns
 
-It does not read conversation messages, call another service, mutate anything,
-write logs, or persist observations. Known credential-bearing fields and proxy-forwarded client IP headers are
-returned as `[REDACTED]`.
+- a full SHA-256 fingerprint for exact registry matching;
+- a short `TFP1-XXXX-XXXX-XXXX-XXXX` display fingerprint;
+- an observation timestamp;
+- explicit privacy properties and stability limitations.
 
-## Run locally
+The application has no database, cookies, OAuth, application logging, or external API calls. It does not persist observations.
 
-Requires Node.js 18 or later and has no package dependencies.
+## Important limitation
+
+The fingerprint is an optional conversation correlator, not a permanent identity guarantee. Use it with a human-approved name and another recovery reference. OpenAI may change or omit the underlying metadata.
+
+## Local development
+
+Requires Node.js 18 or later and has no runtime package dependencies.
 
 ```sh
 npm test
 npm start
 ```
 
-The server listens at `http://127.0.0.1:8787/mcp`; `/health` is a simple
-health check. The included `.mcp.json` points the local plugin at that endpoint.
+The local endpoint is `http://127.0.0.1:8787/mcp`; health information is available at `/health`.
 
-## Test from ChatGPT Developer Mode
+## Cloudflare Worker
 
-ChatGPT must reach the MCP endpoint over public HTTPS. Deploy this directory on
-an HTTPS-capable Node host, set `HOST=0.0.0.0`, and point the developer-mode MCP
-connection to `https://YOUR-HOST/mcp`. Do not add OAuth or data storage for this
-first experiment.
+The Worker entry point is `src/worker.mjs`, configured by `wrangler.jsonc`. Deployment requires a Cloudflare account:
 
-Invoke `inspect_context` with:
-
-```json
-{"marker":"DSHS-THREAD-METADATA-DIAGNOSTIC"}
+```sh
+npx wrangler login
+npx wrangler deploy
 ```
 
-Save the returned JSON exactly for the compatibility matrix. A missing title,
-ID, or URL means only that it was not exposed to this call on that tested
-surface; it does not prove that no internal identifier exists.
+After deployment, replace the local URL in `.mcp.json` with the reviewed production endpoint before packaging or submission.
 
-## Security boundary
+## Plugin
 
-This diagnostic intentionally returns request metadata to the caller that sent
-it. Do not place it on a public URL without an access-control layer unless the
-URL is temporary and unguessable. Stop and review before adding persistence,
-conversation content, account access, mutation, or broader automation.
+The repository root is an installable plugin package containing:
 
-## First-result checklist
+- the `identify_thread` MCP tool;
+- a small generic usage skill;
+- manifest metadata;
+- GitHub Pages source under `docs/`.
 
-For each surface, record the date/time, client/surface, endpoint version, MCP
-protocol version, exact returned schema, and whether the response contains a
-conversation title, conversation ID, conversation URL, client/surface hint,
-device/platform hint, or other stable opaque subject. Treat undocumented fields
-as experimental, never as a sole DSHS dependency.
+## Documentation
 
-## Development timing
+- [Project site](https://jaireaux.github.io/thread-fingerprint/)
+- [Privacy](https://jaireaux.github.io/thread-fingerprint/privacy/)
+- [Terms](https://jaireaux.github.io/thread-fingerprint/terms/)
+- [Support](https://jaireaux.github.io/thread-fingerprint/support/)
+- [Security](SECURITY.md)
 
-As of prerelease `0.1.0-pre.2`, this project has been in development for approximately 1 hour 15 minutes, beginning `2026-09-05 12:23 EDT`. Approximately 26 minutes was spent waiting on AI. These are user-approved approximate baselines; methodology and machine-readable values are retained in `project-timing.json`.
+## Historical diagnostic
+
+Versions `0.1.0-pre.1` and `0.1.0-pre.2` were private diagnostic builds used to establish which metadata ChatGPT supplied. The public utility deliberately removes the broad diagnostic response surface.

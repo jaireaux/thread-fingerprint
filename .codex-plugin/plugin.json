@@ -1,18 +1,40 @@
 {
-  "name": "thread-metadata-diagnostic",
-  "version": "0.1.0-pre.2",
-  "description": "Read-only MCP diagnostic for metadata supplied by the host/runtime.",
-  "author": {"name": "Johnny Rollerfeet"},
+  "name": "thread-fingerprint",
+  "version": "0.2.0-pre.1",
+  "description": "Privacy-minimized read-only utility for identifying a ChatGPT conversation.",
+  "author": {
+    "name": "Johnny Rollerfeet",
+    "email": "jaireaux@users.noreply.github.com",
+    "url": "https://github.com/jaireaux"
+  },
+  "homepage": "https://jaireaux.github.io/thread-fingerprint/",
+  "repository": "https://github.com/jaireaux/thread-fingerprint",
   "license": "MIT",
-  "keywords": ["mcp", "diagnostic", "metadata", "read-only"],
+  "keywords": [
+    "chatgpt",
+    "mcp",
+    "conversation",
+    "fingerprint",
+    "read-only"
+  ],
+  "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
-    "displayName": "Thread Metadata Diagnostic",
-    "shortDescription": "Inspect metadata supplied to one read-only MCP call.",
-    "longDescription": "Reports sanitized tool arguments, MCP metadata, HTTP request metadata, and safe runtime facts without logging or persistence.",
+    "displayName": "Thread Fingerprint",
+    "shortDescription": "Identify the current conversation without exposing its raw ID.",
+    "longDescription": "Creates a deterministic one-way fingerprint from ChatGPT's anonymized conversation metadata. It does not return raw identifiers, inspect conversation content, or persist observations.",
     "developerName": "Johnny Rollerfeet",
-    "category": "Developer Tools",
-    "capabilities": ["Read"],
-    "defaultPrompt": ["Run inspect_context with DSHS-THREAD-METADATA-DIAGNOSTIC."]
+    "category": "Productivity",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://jaireaux.github.io/thread-fingerprint/",
+    "privacyPolicyURL": "https://jaireaux.github.io/thread-fingerprint/privacy/",
+    "termsOfServiceURL": "https://jaireaux.github.io/thread-fingerprint/terms/",
+    "defaultPrompt": [
+      "Identify this conversation.",
+      "Give me this thread's fingerprint.",
+      "Verify whether this is the same conversation."
+    ]
   }
 }
