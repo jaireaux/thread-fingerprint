@@ -19,7 +19,7 @@ The fingerprint is an optional conversation correlator, not a permanent identity
 
 ## Local development
 
-Requires Node.js 18 or later and has no runtime package dependencies.
+The standalone MCP server and test suite require Node.js 18 or later and have no runtime package dependencies. Cloudflare deployment uses the pinned Wrangler 4.129.0 development dependency, which requires Node.js 22 or later in the build environment.
 
 ```sh
 npm test

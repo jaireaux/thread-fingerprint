@@ -25,5 +25,8 @@
     "read-only"
   ],
   "author": "Johnny Rollerfeet <jaireaux@users.noreply.github.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "4.129.0"
+  }
 }
