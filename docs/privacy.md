@@ -16,6 +16,10 @@ When the tool is invoked, ChatGPT sends host-provided MCP metadata to the server
 
 The application does not intentionally read, return, log, or persist the raw session value, user identifier, organization identifier, location, conversation content, visible title, conversation URL, request headers, or generated fingerprint.
 
+Users may optionally supply a short `TFP1-NMCP` legacy reference when identifying a separate new conversation. The MCP server format-checks and returns that reference as a user assertion that the current conversation references a legacy conversation. It does not store the reference.
+
+The repository's separate command-line generator creates the NMCP reference from eight cryptographically random bytes. It requires no conversation URL, conversation identifier, title, or content and performs no network request.
+
 ## Storage and sharing
 
 Thread Fingerprint has no application database, cookies, accounts, OAuth flow, advertising, analytics, or external API calls. The application does not sell or share personal information.

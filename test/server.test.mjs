@@ -41,7 +41,10 @@ test("lists exactly one read-only thread identification tool", async (t) => {
   assert.equal(body.result.tools.length, 1);
   assert.equal(body.result.tools[0].name, "identify_thread");
   assert.equal(body.result.tools[0].annotations.readOnlyHint, true);
-  assert.deepEqual(body.result.tools[0].inputSchema.properties, {});
+  assert.equal(
+    body.result.tools[0].inputSchema.properties.legacyReference.pattern,
+    "^TFP1-NMCP(?:-[A-Fa-f0-9]{4}){4}$",
+  );
 });
 
 test("returns a deterministic fingerprint without raw identifiers", async (t) => {
@@ -97,6 +100,39 @@ test("fails safely when openai/session is absent", async (t) => {
   assert.equal(report.status, "unavailable");
   assert.equal(report.fingerprint, null);
   assert.match(report.reason, /did not supply openai\/session/);
+});
+
+test("records a directional reference without claiming host validation", async (t) => {
+  const base = await fixture(t);
+  const message = call(8, "current-session");
+  message.params.arguments = {
+    legacyReference: "tfp1-nmcp-44eb-ca72-2881-7d67",
+  };
+  const {body} = await post(base, message);
+  const report = body.result.structuredContent;
+
+  assert.equal(report.status, "available");
+  assert.deepEqual(report.continuity, {
+    legacyReference: "TFP1-NMCP-44EB-CA72-2881-7D67",
+    relationship: "current-conversation-references-legacy",
+    legacyReferenceValidated: false,
+    currentFingerprintValidated: true,
+  });
+  assert.match(body.result.content[0].text, /current conversation references the legacy conversation/);
+  assert.match(body.result.content[0].text, /not validated from host metadata/);
+});
+
+test("rejects malformed legacy references and unexpected arguments", async (t) => {
+  const base = await fixture(t);
+  const malformed = call(9, "current-session");
+  malformed.params.arguments = {legacyReference: "TFP1-NMCP-TOO-SHORT"};
+  const malformedResponse = await post(base, malformed);
+  assert.equal(malformedResponse.body.error.code, -32602);
+
+  const unexpected = call(10, "current-session");
+  unexpected.params.arguments = {conversationUrl: "https://chatgpt.com/c/private"};
+  const unexpectedResponse = await post(base, unexpected);
+  assert.equal(unexpectedResponse.body.error.code, -32602);
 });
 
 test("rejects unknown tools", async (t) => {

@@ -65,6 +65,47 @@ test("Worker returns a fingerprint without echoing any raw metadata", async () =
   }
 });
 
+test("Worker returns an explicitly unvalidated directional legacy reference", async () => {
+  const rawSession = "v1/current-reference-session";
+  const request = new Request(endpoint, {
+    method: "POST",
+    headers: {"content-type": "application/json"},
+    body: JSON.stringify({
+      jsonrpc: "2.0",
+      id: 8,
+      method: "tools/call",
+      params: {
+        name: "identify_thread",
+        arguments: {
+          legacyReference: "TFP1-NMCP-44EB-CA72-2881-7D67",
+        },
+        _meta: {"openai/session": rawSession},
+      },
+    }),
+  });
+
+  const response = await worker.fetch(request);
+  const body = await response.json();
+  assert.equal(response.status, 200);
+  assert.equal(
+    body.result.structuredContent.continuity.legacyReference,
+    "TFP1-NMCP-44EB-CA72-2881-7D67",
+  );
+  assert.equal(
+    body.result.structuredContent.continuity.relationship,
+    "current-conversation-references-legacy",
+  );
+  assert.equal(
+    body.result.structuredContent.continuity.legacyReferenceValidated,
+    false,
+  );
+  assert.equal(
+    body.result.structuredContent.continuity.currentFingerprintValidated,
+    true,
+  );
+  assert.equal(JSON.stringify(body).includes(rawSession), false);
+});
+
 test("Worker preflight includes CORS headers", async () => {
   const response = await worker.fetch(new Request(endpoint, {method: "OPTIONS"}));
   assert.equal(response.status, 204);

@@ -20,10 +20,17 @@ Thread Fingerprint does not read conversation content, visible titles, conversat
 
 Use the fingerprint as an optional correlator alongside a human-approved thread name and another recovery reference. It is not a permanent identity guarantee, and it cannot locate or reopen a conversation by itself.
 
+## Existing conversations without plugin tools
+
+Some existing conversations may recognize a plugin mention without exposing the plugin action. Thread Fingerprint cannot observe or diagnose a request that ChatGPT does not send to its MCP server.
+
+To preserve a reference to such a conversation, a user can create a provisional `TFP1-NMCP` reference without supplying a conversation URL. The user carries the same reference and a handoff into a separate new conversation. The new conversation's fingerprint is host-derived; the legacy reference remains explicitly unvalidated. This creates a user-asserted reference from the new conversation to the legacy conversation, not a ChatGPT branch or live connection.
+
 ## Source and documentation
 
 The source code, releases, security policy, and issue tracker are available in the [GitHub repository](https://github.com/jaireaux/thread-fingerprint).
 
 - [Privacy policy](privacy/)
+- [Legacy conversation references](legacy-references/)
 - [Terms of service](terms/)
 - [Support](support/)

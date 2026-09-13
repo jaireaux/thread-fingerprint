@@ -7,8 +7,10 @@ permalink: /security/
 # Security
 
 Thread Fingerprint is deliberately small and read-only. It exposes one MCP
-tool, does not accept user input, does not persist observations, and does not
-include raw host metadata in its responses.
+tool, does not persist observations, and does not include raw host metadata in
+its responses. The tool accepts only one optional user value: a strictly
+formatted `TFP1-NMCP` legacy reference. It does not accept a working URL or raw
+conversation identifier.
 
 ## Reporting a vulnerability
 

@@ -22,7 +22,7 @@
   "interface": {
     "displayName": "Thread Fingerprint",
     "shortDescription": "Identify the current conversation without exposing its raw ID.",
-    "longDescription": "Creates a deterministic one-way fingerprint from ChatGPT's anonymized conversation metadata. It does not return raw identifiers, inspect conversation content, or persist observations.",
+    "longDescription": "Creates a deterministic one-way fingerprint from ChatGPT's anonymized conversation metadata. A new conversation can also record that it references an older conversation by carrying an explicitly unvalidated NMCP reference. It does not return raw identifiers, inspect conversation content, or persist observations.",
     "developerName": "Johnny Rollerfeet",
     "category": "Productivity",
     "capabilities": [
