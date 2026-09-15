@@ -1,7 +1,7 @@
 {
-  "name": "personal",
+  "name": "thread-fingerprint-staging",
   "interface": {
-    "displayName": "Personal"
+    "displayName": "Thread Fingerprint Staging"
   },
   "plugins": [
     {
