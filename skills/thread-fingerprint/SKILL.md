@@ -19,6 +19,7 @@ When the user supplies a `TFP1-NMCP-XXXX-XXXX-XXXX-XXXX` legacy reference, pass 
 - Do not persist the fingerprint or send it to another service unless the user explicitly asks.
 - If the tool reports `unavailable`, explain that this host did not supply the required metadata and use the user's existing recovery workflow instead.
 - If `identify_thread` is not present as a callable tool, state that the failure occurred before MCP invocation and label it as a host-side tool-availability failure. Do not claim to know whether the cause is conversation age, plugin identity, permissions, caching, or surface support.
+- If an attempted invocation is blocked with `This conversation does not support developer MCPs.`, treat that as the same host-side tool-availability failure and immediately continue with the complete NMCP fallback below. Do not stop after merely reporting the host message.
 - If `identify_thread` is not callable, generate a fresh opaque value containing 16 uppercase hexadecimal characters and format it as `TFP1-NMCP-XXXX-XXXX-XXXX-XXXX`. Do not derive it from conversation content, a title, or a URL. Do not describe it as random, cryptographic, deterministic, unique, or host validated.
 - Return two simple prompts with that exact reference already substituted: one prompt that asks the current legacy conversation for a complete handoff, and one prompt for a separate new conversation that carries the handoff and invokes Thread Fingerprint.
 - State that the new conversation references the legacy conversation. Do not imply that ChatGPT branches, connects, or modifies either conversation.
@@ -28,15 +29,10 @@ When the user supplies a `TFP1-NMCP-XXXX-XXXX-XXXX-XXXX` legacy reference, pass 
 
 ## Host-side tool-unavailable response
 
-When the plugin is recognized but `identify_thread` is not callable, use error
-`TFP-HOST-TOOL-UNAVAILABLE`. Substitute one fresh NMCP reference everywhere
-`<legacy-reference>` appears and return this workflow:
+When the plugin is recognized but `identify_thread` is not callable, or an attempted invocation is blocked because the conversation does not support developer MCPs, use error `TFP-HOST-TOOL-UNAVAILABLE`. Substitute one fresh NMCP reference everywhere `<legacy-reference>` appears and return this workflow:
 
-1. Explain that ChatGPT did not make the action available, so no MCP request was
-   made and the exact cause cannot be determined.
-2. State that the user must create a separate new conversation that references
-   the legacy conversation. Explicitly say this does not branch, connect, or
-   modify the legacy conversation.
+1. Explain that ChatGPT did not make the action available, so no MCP request was made and the exact cause cannot be determined.
+2. State that the user must create a separate new conversation that references the legacy conversation. Explicitly say this does not branch, connect, or modify the legacy conversation.
 3. Provide this prompt for the current legacy conversation:
 
 ```text
@@ -50,8 +46,7 @@ Include the current objective, completed work, important decisions, unresolved i
 State clearly that this legacy reference was not validated through MCP.
 ```
 
-4. Tell the user to copy the resulting handoff. Provide this prompt for a
-   separate new conversation:
+4. Tell the user to copy the resulting handoff. Provide this prompt for a separate new conversation:
 
 ```text
 This new conversation references legacy conversation:
@@ -66,7 +61,4 @@ Then continue from the handoff pasted below.
 [Paste the complete handoff from the legacy conversation here.]
 ```
 
-5. Explain that the NMCP value is a provisional, non-MCP reference supplied by
-   the user. The new conversation points back to the legacy conversation; no
-   branch or live connection is created. Tell the user to keep the legacy
-   conversation until the new fingerprint and handoff are verified.
+5. Explain that the NMCP value is a provisional, non-MCP reference supplied by the user. The new conversation points back to the legacy conversation; no branch or live connection is created. Tell the user to keep the legacy conversation until the new fingerprint and handoff are verified.

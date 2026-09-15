@@ -1,6 +1,6 @@
 {
   "name": "thread-fingerprint-staging",
-  "version": "0.2.0-pre.1+codex.staging-20260915",
+  "version": "0.2.0-pre.1+codex.20260915010658",
   "description": "Staging build of the privacy-minimized Thread Fingerprint utility.",
   "author": {
     "name": "Johnny Rollerfeet",
@@ -10,7 +10,13 @@
   "homepage": "https://jaireaux.github.io/thread-fingerprint/",
   "repository": "https://github.com/jaireaux/thread-fingerprint",
   "license": "MIT",
-  "keywords": ["chatgpt", "mcp", "conversation", "fingerprint", "staging"],
+  "keywords": [
+    "chatgpt",
+    "mcp",
+    "conversation",
+    "fingerprint",
+    "staging"
+  ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Thread Fingerprint Staging",
@@ -18,7 +24,9 @@
     "longDescription": "Staging package for testing host-derived conversation fingerprints and explicitly unvalidated NMCP legacy references before production release.",
     "developerName": "Johnny Rollerfeet",
     "category": "Productivity",
-    "capabilities": ["Read"],
+    "capabilities": [
+      "Read"
+    ],
     "websiteURL": "https://jaireaux.github.io/thread-fingerprint/",
     "privacyPolicyURL": "https://jaireaux.github.io/thread-fingerprint/privacy/",
     "termsOfServiceURL": "https://jaireaux.github.io/thread-fingerprint/terms/",
