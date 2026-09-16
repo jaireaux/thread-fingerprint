@@ -15,6 +15,18 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Productivity"
+    },
+    {
+      "name": "thread-fingerprint-legacy-rescue",
+      "source": {
+        "source": "local",
+        "path": "./plugins/thread-fingerprint-legacy-rescue"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
     }
   ]
 }

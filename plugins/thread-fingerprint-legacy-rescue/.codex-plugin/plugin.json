@@ -1,0 +1,37 @@
+{
+  "name": "thread-fingerprint-legacy-rescue",
+  "version": "0.1.0",
+  "description": "Create a provisional handoff reference when Thread Fingerprint cannot run.",
+  "author": {
+    "name": "Johnny Rollerfeet",
+    "email": "jaireaux@users.noreply.github.com",
+    "url": "https://github.com/jaireaux"
+  },
+  "homepage": "https://jaireaux.github.io/thread-fingerprint/legacy-references/",
+  "repository": "https://github.com/jaireaux/thread-fingerprint",
+  "license": "MIT",
+  "keywords": [
+    "chatgpt",
+    "conversation",
+    "handoff",
+    "legacy",
+    "recovery"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Thread Fingerprint Legacy Rescue",
+    "shortDescription": "Create a provisional legacy handoff reference.",
+    "longDescription": "Helps move an older or unsupported conversation into a separate new conversation by generating an explicitly non-MCP legacy reference and two handoff prompts. It does not identify, branch, connect, modify, or validate the legacy conversation.",
+    "developerName": "Johnny Rollerfeet",
+    "category": "Productivity",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://jaireaux.github.io/thread-fingerprint/",
+    "privacyPolicyURL": "https://jaireaux.github.io/thread-fingerprint/privacy/",
+    "termsOfServiceURL": "https://jaireaux.github.io/thread-fingerprint/terms/",
+    "defaultPrompt": [
+      "Rescue this legacy conversation."
+    ]
+  }
+}

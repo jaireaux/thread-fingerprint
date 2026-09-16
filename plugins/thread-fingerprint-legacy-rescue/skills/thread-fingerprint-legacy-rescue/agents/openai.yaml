@@ -1,0 +1,4 @@
+interface:
+  display_name: "Thread Fingerprint Legacy Rescue"
+  short_description: "Create a provisional legacy handoff reference."
+  default_prompt: "Rescue this legacy conversation."
