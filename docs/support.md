@@ -15,6 +15,13 @@ Confirm that:
 3. The host supplied `openai/session` metadata.
 4. You are not treating the fingerprint as a visible title or URL.
 
+For Legacy Rescue, confirm that:
+
+1. You installed **Thread Fingerprint Legacy Rescue**, not the production or staging MCP plugin.
+2. You started a new conversation after installation so the skill is available.
+3. The response contains one `TFP1-NMCP` reference and two copyable prompt blocks.
+4. You are not treating the NMCP reference as MCP validated or as proof of conversation identity.
+
 ## Reporting problems
 
 Use the [GitHub issue tracker](https://github.com/jaireaux/thread-fingerprint/issues) for non-sensitive reports.

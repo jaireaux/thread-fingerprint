@@ -6,6 +6,7 @@
   "description": "Privacy-minimized MCP utility for identifying a ChatGPT conversation.",
   "scripts": {
     "legacy-reference": "node scripts/create-legacy-reference.mjs",
+    "package:legacy-rescue": "bash scripts/package-legacy-rescue.sh",
     "start": "node server.mjs",
     "test": "node --test"
   },

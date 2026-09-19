@@ -6,7 +6,7 @@ permalink: /privacy/
 
 # Privacy Policy
 
-Effective: September 5, 2026
+Effective: September 19, 2026
 
 Thread Fingerprint is designed to minimize data handling.
 
@@ -20,6 +20,8 @@ Users may optionally supply a short `TFP1-NMCP` legacy reference when identifyin
 
 The repository's separate command-line generator creates the NMCP reference from eight cryptographically random bytes. It requires no conversation URL, conversation identifier, title, or content and performs no network request.
 
+The Thread Fingerprint Legacy Rescue skills-only plugin creates the same style of provisional NMCP label inside the conversation. The plugin does not call an MCP server or external API, request a private conversation URL, or transmit conversation content to the Thread Fingerprint service. The host platform still processes the conversation under its own terms and privacy policy.
+
 ## Storage and sharing
 
 Thread Fingerprint has no application database, cookies, accounts, OAuth flow, advertising, analytics, or external API calls. The application does not sell or share personal information.
@@ -29,6 +31,8 @@ Cloudflare processes requests to operate the MCP endpoint, and GitHub processes 
 ## User control
 
 The tool runs only when selected or invoked through a compatible host. Users may disconnect or uninstall it through their ChatGPT or Codex plugin settings.
+
+The Legacy Rescue skill runs only when invoked or selected for an applicable legacy-conversation handoff. Users control whether to copy its prompts or reference into another conversation.
 
 ## Changes
 

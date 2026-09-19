@@ -54,6 +54,8 @@ The repository root is an installable plugin package containing:
 - manifest metadata;
 - GitHub Pages source under `docs/`.
 
+The repository also contains `plugins/thread-fingerprint-legacy-rescue`, a skills-only plugin prepared for the universal Plugins Directory. It provides the NMCP handoff workflow without depending on the MCP server. Its public-submission listing, reviewer notes, and five positive plus three negative test cases are recorded in that plugin's `SUBMISSION.md`.
+
 ## Documentation
 
 - [Project site](https://jaireaux.github.io/thread-fingerprint/)

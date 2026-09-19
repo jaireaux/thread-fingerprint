@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Thread Fingerprint Legacy Rescue</title>
+  <desc id="desc">A white fingerprint and amber return arrow on a blue field.</desc>
+  <rect width="512" height="512" rx="112" fill="#275DAD"/>
+  <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-width="30">
+    <path d="M151 263c0-71 46-121 105-121s105 50 105 121"/>
+    <path d="M194 278v-22c0-37 26-67 62-67s62 30 62 67v62"/>
+    <path d="M236 314v-61c0-12 8-21 20-21s20 9 20 21v88"/>
+    <path d="M153 320c8 43 30 76 64 96"/>
+    <path d="M319 370c-17 32-40 54-70 66"/>
+  </g>
+  <path d="M116 366h99v-44l78 69-78 69v-43h-99z" fill="#F6A623"/>
+</svg>

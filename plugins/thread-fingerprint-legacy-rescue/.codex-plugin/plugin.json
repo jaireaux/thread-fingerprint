@@ -31,7 +31,12 @@
     "privacyPolicyURL": "https://jaireaux.github.io/thread-fingerprint/privacy/",
     "termsOfServiceURL": "https://jaireaux.github.io/thread-fingerprint/terms/",
     "defaultPrompt": [
-      "Rescue this legacy conversation."
-    ]
+      "Rescue this legacy conversation.",
+      "Create a handoff reference for this old chat.",
+      "Help me continue this chat in a new conversation."
+    ],
+    "brandColor": "#275DAD",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png"
   }
 }
