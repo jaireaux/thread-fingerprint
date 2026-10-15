@@ -23,6 +23,25 @@ This relationship is not documented and must be tested rather than assumed. The
 fingerprint cannot be reversed; comparison must happen while the server is handling
 the original host metadata.
 
+## Preliminary non-invasive comparison
+
+On October 15, 2026, the production `identify_thread` result for a known
+project-contained conversation was compared locally against hashes of narrowly
+defined representations of that conversation's visible URL identifier.
+
+The returned fingerprint did not match the SHA-256 of:
+
+- the visible conversation identifier by itself;
+- `v1/<conversation-id>`;
+- the visible `/c/<conversation-id>` path;
+- the shortened ChatGPT conversation URL; or
+- the complete project-contained conversation URL.
+
+No URL, raw identifier, or fingerprint value was committed. This result rules out
+simple reconstruction from the existing fingerprint. It does not rule out a
+relationship hidden inside the raw `openai/session` value, so any further test
+requires the staging-only in-memory comparison described below.
+
 ## Proposed staging-only tool
 
 Working name: `verify_conversation_url`
