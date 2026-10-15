@@ -1,6 +1,6 @@
 # Conversation URL Recovery — v2 Candidate
 
-Status: design candidate; not implemented or deployed.
+Status: staging experiment; direct comparisons failed in both ordinary and project conversations.
 
 ## Why this is separate from fingerprinting
 
@@ -89,6 +89,10 @@ Candidate rules to test, in order:
 2. Exact equality after removing one explicitly recognized version prefix from the
    session value.
 3. Exact equality with one explicitly parsed terminal UUID-like segment.
+4. Exact equality with SHA-256 digests of the identifier, `v1/` identifier,
+   conversation path, canonical ordinary URL, and complete supplied URL, encoded as
+   hexadecimal, Base64, or unpadded Base64url. The same comparisons may remove one
+   recognized `v1/` prefix from the session value.
 
 No rule should be enabled merely because it produces a plausible-looking URL.
 Any normalization must be documented and covered by positive and negative fixtures.
