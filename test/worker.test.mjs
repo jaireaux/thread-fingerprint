@@ -74,3 +74,28 @@ test("Worker preflight includes CORS headers", async () => {
     /POST/,
   );
 });
+
+test("Worker exposes the URL probe only when the staging flag is enabled", async () => {
+  const request = new Request(endpoint, {
+    method: "POST",
+    headers: {"content-type": "application/json"},
+    body: JSON.stringify({
+      jsonrpc: "2.0",
+      id: 22,
+      method: "tools/list",
+    }),
+  });
+
+  const production = await worker.fetch(request.clone(), {});
+  const staging = await worker.fetch(request, {ENABLE_URL_PROBE: "true"});
+  const productionBody = await production.json();
+  const stagingBody = await staging.json();
+  assert.deepEqual(
+    productionBody.result.tools.map(({name}) => name),
+    ["identify_thread"],
+  );
+  assert.deepEqual(
+    stagingBody.result.tools.map(({name}) => name),
+    ["identify_thread", "probe_conversation_url"],
+  );
+});
