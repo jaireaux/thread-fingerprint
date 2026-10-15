@@ -48,6 +48,13 @@ The repository root is an installable plugin package containing:
 - manifest metadata;
 - GitHub Pages source under `docs/`.
 
+## Future work
+
+A privacy-sensitive [conversation URL recovery design](url-recovery-v2-candidate.md)
+is being evaluated as a possible v2 capability. It is not implemented or deployed,
+and it must not change existing `TFP1` fingerprints or the current
+`identify_thread` privacy contract.
+
 ## Documentation
 
 - [Project site](https://jaireaux.github.io/thread-fingerprint/)
