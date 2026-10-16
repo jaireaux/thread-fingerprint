@@ -2,5 +2,13 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "thread-fingerprint",
   "main": "src/worker.mjs",
-  "compatibility_date": "2026-09-05"
+  "compatibility_date": "2026-09-05",
+  "env": {
+    "staging": {
+      "name": "thread-fingerprint-staging",
+      "vars": {
+        "ENABLE_URL_PROBE": "true"
+      }
+    }
+  }
 }

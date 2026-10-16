@@ -44,6 +44,50 @@ test("lists exactly one read-only thread identification tool", async (t) => {
   assert.deepEqual(body.result.tools[0].inputSchema.properties, {});
 });
 
+test("lists the URL probe only when explicitly enabled", async (t) => {
+  const server = createServer({enableUrlProbe: true}).listen(0, "127.0.0.1");
+  t.after(() => server.close());
+  await new Promise((resolve) => server.once("listening", resolve));
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const {body} = await post(base, {
+    jsonrpc: "2.0",
+    id: 20,
+    method: "tools/list",
+  });
+  assert.deepEqual(
+    body.result.tools.map(({name}) => name),
+    ["identify_thread", "probe_conversation_url"],
+  );
+  assert.equal(body.result.tools[1].annotations.readOnlyHint, true);
+});
+
+test("URL probe compares in memory without returning raw inputs", async (t) => {
+  const server = createServer({enableUrlProbe: true}).listen(0, "127.0.0.1");
+  t.after(() => server.close());
+  await new Promise((resolve) => server.once("listening", resolve));
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const conversationId = "11111111-2222-4333-8444-555555555555";
+  const conversationUrl = `https://chatgpt.com/c/${conversationId}`;
+  const rawSession = `opaque/session/${conversationId}`;
+  const {body} = await post(base, {
+    jsonrpc: "2.0",
+    id: 21,
+    method: "tools/call",
+    params: {
+      name: "probe_conversation_url",
+      arguments: {conversationUrl},
+      _meta: {"openai/session": rawSession},
+    },
+  });
+  const report = body.result.structuredContent;
+  assert.equal(report.status, "verified_match");
+  assert.equal(report.classification, "terminal_conversation_id");
+  const serialized = JSON.stringify(body.result);
+  assert.equal(serialized.includes(rawSession), false);
+  assert.equal(serialized.includes(conversationUrl), false);
+  assert.equal(serialized.includes(conversationId), false);
+});
+
 test("returns a deterministic fingerprint without raw identifiers", async (t) => {
   const base = await fixture(t);
   const rawSession = "v1/example-private-session";

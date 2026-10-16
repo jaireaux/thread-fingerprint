@@ -22,7 +22,7 @@ function json(body, status = 200) {
 }
 
 export default {
-  async fetch(request) {
+  async fetch(request, env = {}) {
     const url = new URL(request.url);
     if (request.method === "OPTIONS") {
       return new Response(null, {status: 204, headers: corsHeaders});
@@ -42,7 +42,10 @@ export default {
 
     try {
       const message = await request.json();
-      const response = await handleRpc(message, {digestSession});
+      const response = await handleRpc(message, {
+        digestSession,
+        enableUrlProbe: env.ENABLE_URL_PROBE === "true",
+      });
       return response === null ? new Response(null, {status: 202}) : json(response);
     } catch {
       return json({

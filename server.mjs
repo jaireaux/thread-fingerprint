@@ -22,7 +22,9 @@ async function readJson(req) {
   return JSON.parse(Buffer.concat(chunks).toString("utf8"));
 }
 
-export function createServer() {
+export function createServer(options = {}) {
+  const enableUrlProbe = options.enableUrlProbe
+    ?? process.env.ENABLE_URL_PROBE === "true";
   return http.createServer(async (req, res) => {
     res.setHeader("access-control-allow-origin", "*");
     res.setHeader("access-control-allow-methods", "GET, POST, OPTIONS");
@@ -51,7 +53,10 @@ export function createServer() {
 
     try {
       const message = await readJson(req);
-      const response = await handleRpc(message, {digestSession});
+      const response = await handleRpc(message, {
+        digestSession,
+        enableUrlProbe,
+      });
       if (response === null) {
         res.writeHead(202).end();
         return;
